@@ -30,8 +30,10 @@ public class UdpDictSever {
         //核心逻辑的实现是“查表”。
         //就是把所有的数据放到数据库中
         //此处简单起见，直接查内存中的hash表。
+        //此处使用getDefault 来查，如果是get的话，key不存在，就返回null了
+        //此处返回的不是null，而是给客户端一个提示。
+        return dict.getOrDefault(request,"[单词在词典中不存在！！]");
 
-        return dict.getOrDefault();
     }
 
 
@@ -52,5 +54,10 @@ public class UdpDictSever {
             System.out.println(log);
 
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        UdpDictSever server=new UdpDictSever(9090);
+        server.start();
     }
 }
