@@ -9,6 +9,16 @@ class ListNode {
     private int telNumber;
     public ListNode next;
 
+    public ListNode(){
+
+    }
+
+    public ListNode(int jobNumber, String name, int telNumber) {
+        this.jobNumber = jobNumber;
+        this.Name = name;
+        this.telNumber = telNumber;
+    }
+
     public int getJobNumber() {
         return jobNumber;
     }
@@ -48,7 +58,7 @@ public class staffMember {
         System.out.printf("请输入电话号码 %d :", serialNumber);
         telNumber = sc.nextInt();
         while (jobnumber >= 0) {
-            ListNode tempNode = new ListNode();
+            ListNode tempNode = new ListNode(1,"1",1);
             tempNode.setJobNumber(jobnumber);
             tempNode.setName(name);
             tempNode.setTelNumber(telNumber);
@@ -65,7 +75,17 @@ public class staffMember {
     }
 
     protected static void insertYouYo(ListNode head, ListNode tempNode) {
-        ListNode p = head.next;
+        ListNode l1=new ListNode(01,"张燕",8786542);
+        head.next=l1;
+        ListNode l2=new ListNode(02,"张言",8786542);
+        ListNode l3=new ListNode(03,"张严",8786542);
+        ListNode l4=new ListNode(04,"张烟",8786542);
+        ListNode l5=new ListNode(05,"张岩",8786542);
+        l1.next=l2;
+        l2.next=l3;
+        l3.next=l4;
+        l4.next=l5;
+        ListNode p =l5.next;
         while (p != null && tempNode.getJobNumber() >= p.getJobNumber()) {
             if (p.getJobNumber() == tempNode.getJobNumber()) {
                 System.out.println("重复输入！！");
@@ -92,7 +112,7 @@ public class staffMember {
     }
 
     protected static void printList(ListNode head) {
-        ListNode tempNode = head;
+        ListNode tempNode = head.next;
         int n = 1;
         System.out.println("\n------------------------------------------");
         System.out.println("         工号          姓名          电话号码   ");
@@ -100,8 +120,8 @@ public class staffMember {
         if (head == null || head.next == null) {
             System.out.println("职员表中没有信息！！");
         } else {
-            while (tempNode.next != null) {
-                System.out.printf("   %d     %d           %s             %d   ", n, tempNode.getJobNumber(), tempNode.getName(), tempNode.getTelNumber());
+            while (tempNode != null) {
+                System.out.printf("   %d     %d           %s             %d   \n", n, tempNode.getJobNumber(), tempNode.getName(), tempNode.getTelNumber());
                 tempNode = tempNode.next;
                 n++;
             }
