@@ -8,7 +8,7 @@ import static javafx.application.Platform.exit;
 
 
 class List{
-   public int n;
+   public int n=10;
    public  int A[]=new int[n+1];
    public  int len;
 }
@@ -51,6 +51,7 @@ public class QueueManagement {
         System.out.println("请输入你的选择0-6：");
         int c=0;
         Scanner sc=new Scanner(System.in);
+        c=sc.nextInt();
         switch (c){
             case 1:
                 System.out.flush();
@@ -393,11 +394,10 @@ public class QueueManagement {
                 cardNumber=sc.nextInt();
                 System.out.println("请输入您的五位密码：");
                 int p=0;
-                while(ch[k-1]!=' '){
+                while(ch[k]!=' '){
                     ch[k]=sc.next().charAt(p);
                     p++;
                     k++;
-                    System.out.print("*");
                 }
                 if(cardNumber==100 && ch[0]=='1' && ch[1]=='1' && ch[2]=='1' && ch[3]=='1'){
                     System.out.println("尊敬的vip用户您好！请您直接到vip区办理业务！");
