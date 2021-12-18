@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 class ListNode {
-    private int jobNumber;//工号
-    private String Name;
-    private int telNumber;
+    public int jobNumber;//工号
+   public String Name;
+   public int telNumber;
     public ListNode next;
 
     public ListNode(){
@@ -85,29 +85,38 @@ public class staffMember {
         l2.next=l3;
         l3.next=l4;
         l4.next=l5;
-        ListNode p =l5.next;
-        while (p != null && tempNode.getJobNumber() >= p.getJobNumber()) {
+        ListNode p=new ListNode();
+        p=l5;
+        while (p != null ) {
             if (p.getJobNumber() == tempNode.getJobNumber()) {
                 System.out.println("重复输入！！");
                 return;
             }
             p = p.next;
         }
-        if (p == null) {
-            p = prior(head, p);
-            tempNode.next = null;
-            p.next = tempNode;
-        } else {
-            p = prior(head, p);
-            tempNode.next = p.next;
-            p.next = tempNode;
+        if(p==null){
+            p=prior(head,p);
+            tempNode.next=null;
+            p.next=tempNode;
         }
+//        if (p == null) {
+//            p = prior(head, p);
+//            tempNode.next = null;
+//            p.next = tempNode;
+//        } else {
+//            p = prior(head, p);
+//            tempNode.next = p.next;
+//            p.next = tempNode;
+//
+       // }
     }
 
     private static ListNode prior(ListNode head, ListNode p) {
         ListNode temp = head;
         if (head.next == null) return head;
-        while (temp.next != p) temp = temp.next;
+        while (temp.next != p) {
+            temp = temp.next;
+        }
         return temp;
     }
 
@@ -121,7 +130,7 @@ public class staffMember {
             System.out.println("职员表中没有信息！！");
         } else {
             while (tempNode != null) {
-                System.out.printf("   %d     %d           %s             %d   \n", n, tempNode.getJobNumber(), tempNode.getName(), tempNode.getTelNumber());
+                System.out.printf("   %d     %d           %s             %d   \n", n, tempNode.jobNumber, tempNode.Name, tempNode.telNumber);
                 tempNode = tempNode.next;
                 n++;
             }
@@ -234,8 +243,6 @@ public class staffMember {
         }
         return flag;
     }
-
-
     public static void main(String[] args) {
         ListNode head=new ListNode();
         head.next=null;
