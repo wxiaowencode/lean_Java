@@ -1,48 +1,7 @@
-package æ ‘;
 
-
-class TreeNode{
-    public char val;
-    public TreeNode left;
-    public TreeNode right;
-
-
-
-    public TreeNode(char val){
-        this.val=val;
-    }
-}
-
-
-
-
-
-
-
-public class BinaryTree {
-    public TreeNode createTree(){
-        TreeNode A =new TreeNode('A');
-        TreeNode B =new TreeNode('B');
-        TreeNode C =new TreeNode('C');
-        TreeNode D =new TreeNode('D');
-        TreeNode E =new TreeNode('E');
-        TreeNode F =new TreeNode('F');
-        TreeNode G =new TreeNode('G');
-        TreeNode H =new TreeNode('H');
-        A.left=B;
-        A.right=C;
-        B.left=D;
-        B.right=E;
-        C.left=F;
-        C.right=G;
-        C.right=H;
-        E.right=H;
-        return A;
-    }
-    //å‰åºéå†
-
-    void preOrderTraversal(TreeNode root){
-        if(root == null){
+//¶ş²æÊ÷µÄÇ°Ğò±éÀú
+public void preOrderTraversal(TreeNode root){
+        if(root==null){
             return;
         }
         System.out.print(root.val+" ");
@@ -50,20 +9,261 @@ public class BinaryTree {
         preOrderTraversal(root.right);
     }
 
-    //ååºéå†
-    void postOrderTraversal(TreeNode root){
-        if(root ==null ){
+//¶ş²æÊ÷µÄÖĞĞò±éÀú
+public void inOrderTraversal(TreeNode root){
+        if(root==null){
             return;
         }
-        postOrderTraversal(root.left);
-        postOrderTraversal(root.right);
+        preOrderTraversal(root.left);
+        System.out.print(root.val+" ");
+        preOrderTraversal(root.right);
+    }
+//¶ş²æÊ÷µÄºóĞò±éÀú
+public void postOrderTraversal(TreeNode root){
+        if(root==null){
+            return;
+        }
+        preOrderTraversal(root.left);
+        preOrderTraversal(root.right);
+        System.out.print(root.val+" ");
     }
 
-    //å­é—®é¢˜æ€è·¯-æ±‚ç»“ç‚¹ä¸ªæ•°
+//¶ş²æÊ÷µÄ·Çµİ¹éÇ°Ğò±éÀú£¨µü´ú£©
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        if (root == null) {
+            return res;
+        }
+
+        Deque<TreeNode> stack = new LinkedList<TreeNode>();
+        TreeNode node = root;
+        while (!stack.isEmpty() || node != null) {
+            while (node != null) {
+                res.add(node.val);
+                stack.push(node);
+                node = node.left;
+            }
+            node = stack.pop();
+            node = node.right;
+        }
+        return res;
+    }
+}
+//¶ş²æÊ÷µÄ·Çµİ¹éÖĞĞò±éÀú
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res=new ArrayList<Integer>();
+        if(root==null){
+            return res;
+        }
+        Deque<TreeNode> stack=new LinkedList<TreeNode>();
+        TreeNode node=root;
+        while(!stack.isEmpty() || node!=null){
+            while(node!=null){
+                stack.push(node);
+                node=node.left;   
+            }
+            node=stack.pop();//×ó±ßÎª¿Õ£¬¾ÍµÃµ½Õ»¶¥×ÓÊ÷µÄ¸ù½Úµã
+            res.add(node.val); 
+            node=node.right;
+        }
+        return res;
+    }
+}
+
+
+//¶ş²æÊ÷µÄ·Çµİ¹éºóĞò±éÀú
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res=new ArrayList<Integer>();
+        if(root==null){
+            return res;
+        }
+        Deque<TreeNode> stack=new LinkedList<TreeNode>();
+        TreeNode node=null;
+        while(root!=null || !stack.isEmpty()){
+            while(root!=null){
+                stack.push(root);
+                root=root.left;
+            }  
+            root=stack.pop();
+            if(root.right==null || root.right==node){
+                res.add(root.val);
+                node=root;
+                root=null;
+            }else{
+                stack.push(root);
+                root=root.right;
+            }
+        }
+        return res;
+    }
+}
+
+    //±éÀúË¼Â·£ºÇó½Úµã¸öÊı
+    static int size=0;
+    void getSize(TreeNode root){
+        if(root==null){
+            return;
+        }
+        size++;
+        getSize(root.left);
+        getSize(root.right);
+    }
+
+
+    //×ÓÎÊÌâ£ºÇó½ÚµãµÄ¸öÊı
     int getSize2(TreeNode root){
-        if(root == null){
+        if(root==null){
             return 0;
         }
         return getSize2(root.left)+getSize2(root.right)+1;
     }
+
+
+    //±éÀúË¼Â·£ºÇóÒ¶×Ó½Úµã¸öÊı
+    static int leafSize=0;
+    void getLeafSize1(TreeNode root){
+        if(root==null){
+            return;
+        }
+        if(root.left==null && root.right==null){
+            leafSize++;
+        }
+        getLeafSize1(root.left);
+        getLeafSize1(root.right);
+    }
+
+
+
+
+    //×ÓÎÊÌâË¼Â·£ºÇóÒ¶×Ó½Úµã¸öÊı
+    int getLeafSize2(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        if(root.left==null && root.right==null){
+          return 1;
+        }
+        return getLeafSize2(root.left)+getLeafSize2(root.right);
+    }
+
+    //×ÓÎÊÌâ:ÇóµÚk²ã½Úµã¸öÊı
+
+    int getKLevelSize(TreeNode root,int k){
+        if(root==null){
+            return 0;
+        }
+        //Ñ­»·ÖÕÖ¹Ìõ¼ş
+        if(k==1){
+            return 1;
+        }
+        return getKLevelSize(root.left,k-1)+getKLevelSize(root.right,k-1);
+    }
+
+
+   //ÕÒµ½Ä³¸öÖµ
+    TreeNode find(TreeNode root,char val){
+        if(root ==null){
+            return null;
+        }
+        if(root.val==val){
+            return root;
+        }
+
+         TreeNode ret=find(root.left,val);
+        if(ret!=null){
+            return ret;
+        }
+
+         ret=find(root.right,val);
+        if(ret!=null){
+            return ret;
+        }
+
+        return null;
+    }
+
+    //»ñÈ¡¶ş²æÊ÷µÄ¸ß¶È
+     int getHeight(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        return Math.max(getHeight(root.left),getHeight(root.right))+1;
+    }
+
+ //¶ş²æÊ÷¾µÏñ
+ public class Solution {
+    /**
+     * ´úÂëÖĞµÄÀàÃû¡¢·½·¨Ãû¡¢²ÎÊıÃûÒÑ¾­Ö¸¶¨£¬ÇëÎğĞŞ¸Ä£¬Ö±½Ó·µ»Ø·½·¨¹æ¶¨µÄÖµ¼´¿É
+     *
+     * 
+     * @param pRoot TreeNodeÀà 
+     * @return TreeNodeÀà
+     */
+    public TreeNode Mirror (TreeNode pRoot) {
+        // write code here
+        if(pRoot==null || (pRoot.left==null && pRoot.right==null)){
+            return pRoot;
+        }
+        TreeNode temp=pRoot.left;
+        pRoot.left=pRoot.right;
+        pRoot.right=temp;
+        Mirror(pRoot.left);
+        Mirror(pRoot.right);
+        return pRoot;
+    }
 }
+
+    //²ãĞò±éÀú£¨½èÖú¶ÓÁĞ£©
+    void levelOrderTraversal(TreeNode root){
+        if(root ==null){
+            return;
+        }
+        Queue<TreeNode> queue=new LinkedList<TreeNode>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            TreeNode top=queue.poll();
+            System.out.print(top.val+" ");
+            if(top.left!=null){
+                queue.offer(top.left);
+            }
+            if(top.right!=null){
+                queue.offer(top.right);
+            }
+        }
+    }
+
+ //²ãĞò±éÀú£¨½èÖú¶ÓÁĞ+½«Ã¿Ò»²ãµÄÊ÷½Úµã¶¼·Åµ½Ò»¸ölistÖĞ  leetcodeÌâÄ¿£©
+     public List<List<Integer>> levelOrder(TreeNode root){
+        //Ö»ÊÇÎªÁËÂú×ã½á¹ûµÄÒªÇó
+        List<List<Integer>> res=new ArrayList<>();
+        if(root==null){
+            return null;
+        }
+
+        //¶ÓÁĞµÄ×÷ÓÃÊÇÓÃÀ´ÊµÏÖ²ãĞò±éÀúµÄ¡£
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            //sizeµÄ´óĞ¡¾ÍÊÇÒ»²ã
+            int size=queue.size();
+            List<TreeNode> list=new ArrayList<>();
+            while(size!=0){
+                TreeNode top=queue.poll();
+               list.add(top.val);
+                if(top.left!=null){
+                    queue.offer(top.left);
+                }
+                if(top.right!=null){
+                    queue.offer(top.right);
+                }
+                size--;
+            }
+            res.add(list);
+        }
+        return null;
+    }
+
