@@ -1,3 +1,5 @@
+package TestDemos;
+
 import java.awt.*;
 import javax.swing.*;
 public class BoxLayoutDemo {
